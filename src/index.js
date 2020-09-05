@@ -14,7 +14,7 @@ class HomePage extends React.Component {
     this.state = {
       recipes: [
         {
-          link: 'https://katie-matt-recipes.s3.amazonaws.com/Barbacoa+(Instant+Pot).md',
+          link: '/Barbacoa+(Instant+Pot).md',
           description: 'Barbacoa (Instant Pot)'
         },
         {
