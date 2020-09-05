@@ -195,7 +195,7 @@ class ListRecipe extends React.Component {
 
   render() {
     return (
-      <ReactMarkdown source={this.state.recipe_text} className="Recipe"/>
+      <ReactMarkdown source={"## Header"} className="Recipe"/>
     );
   }
 
