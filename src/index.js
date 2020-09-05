@@ -134,7 +134,7 @@ class HomePage extends React.Component {
     const show_links = this.state.show_links;
     if (show_links) {
       const recipes = this.state.recipes;
-      const links = recipes.Map((recipe, index) => 
+      const links = recipes.map((recipe, index) => 
         <ListRecipeLink
           onClick={this.handleClick}
           key={index}
