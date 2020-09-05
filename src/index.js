@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+require('es6-shim');
 
 const ReactMarkdown = require('react-markdown');
 
@@ -134,7 +135,7 @@ class HomePage extends React.Component {
     const show_links = this.state.show_links;
     if (show_links) {
       const recipes = this.state.recipes;
-      const links = recipes.map((recipe, index) => 
+      const links = recipes.Map((recipe, index) => 
         <ListRecipeLink
           onClick={this.handleClick}
           key={index}
