@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ReactMarkdown = require('react-markdown');
 
-class HomePage extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -146,7 +146,7 @@ class Recipe extends React.Component {
 
 ReactDOM.render(
   <BrowserRouter>
-    <HomePage />
+    <App />
   </BrowserRouter>,
   document.getElementById('root')
 );
