@@ -214,12 +214,14 @@ class ListRecipe extends React.Component {
     const link = "/recipe/barbacoa_instant_pot";
     API
       .get("recipeAPI", link)
-      .then(response => response.json())
-        .then(json => console.log(json))
-
+      .then(response => response.text) 
+        .then(text => this.setState({recipe_text: text}))
+        .catch(error => {
+          console.log(error.response);
+        })
       .catch(error => {
         console.log(error.response);
-    });
+      });
     //fetch(link)
     //  .then(response => response.blob())
     //    .then(blob => blob.text())
