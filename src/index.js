@@ -14,7 +14,7 @@ class HomePage extends React.Component {
     this.state = {
       recipes: [
         {
-          link: '/Barbacoa+(Instant+Pot).md',
+          link: 'https://pnpno9xich.execute-api.us-east-1.amazonaws.com/devel/recipe/barbacoa_instant_pot',
           description: 'Barbacoa (Instant Pot)'
         },
         {
@@ -195,7 +195,7 @@ class ListRecipe extends React.Component {
 
   render() {
     return (
-      <ReactMarkdown source={"## Header"} className="Recipe"/>
+      <ReactMarkdown source={this.state.recipe_text} className="Recipe"/>
     );
   }
 
