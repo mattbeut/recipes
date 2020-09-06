@@ -211,7 +211,7 @@ class ListRecipe extends React.Component {
         ]
       }
     });
-    const link = "/recipe/barbacoa_instant_pot"
+    const link = "/recipe/barbacoa_instant_pot";
     API
       .get("recipeAPI", link)
       .then(response => response.json())
