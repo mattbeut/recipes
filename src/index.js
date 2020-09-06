@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import Amplify, { API } from 'aws-amplify';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap'
+
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Amplify, { API } from 'aws-amplify';
 
 const ReactMarkdown = require('react-markdown');
 
@@ -14,8 +17,7 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       recipes: [],
-      recipe_index: null,
-      show_links: true,
+      recipe_index: 0,
     }
     
     this.handleClick = this.handleClick.bind(this);
@@ -23,7 +25,6 @@ class HomePage extends React.Component {
 
   handleClick(index) {
     this.setState({recipe_index: index});
-    this.setState({show_links: false});
   }
 
   componentDidMount() {
@@ -44,36 +45,45 @@ class HomePage extends React.Component {
         console.log(error.response);
       });
   }
-  render() {
-    const show_links = this.state.show_links;
-    if (show_links) {
-      const recipes = this.state.recipes;
-      const links = recipes.map((recipe, index) => 
-        <ListRecipeLink
-          onClick={this.handleClick}
-          key={index}
-          index={index}
-          title={recipe.title}
-        />
-      );
-      return (
-        <Container fluid>
-          {links}
-        </Container>
-      );
-    }
-    else {
-      return (
-        <ListRecipe
-          id={this.state.recipes[this.state.recipe_index].id}
-        />
-      );
-    }
-  }
 
+  render() {
+    return (
+      <Switch>
+        <Route
+          path="/" exact render={
+            (props) => <ListOfLinks {...props} recipes={this.state.recipes} onClick={this.handleClick} />
+          }
+        />
+        <Route
+          path="/:recipe_id" component={Recipe}
+        />
+      </Switch>
+    );
+  }
 }
 
-class ListRecipeLink extends React.Component {
+class ListOfLinks extends React.Component {
+  render() {
+    const recipes = this.props.recipes;
+    const links = recipes.map((recipe, index) => 
+      <RecipeLink
+        onClick={this.props.onClick}
+        key={index}
+        index={index}
+        id={recipe.id}
+        title={recipe.title}
+      />
+    );
+
+    return (
+      <Container fluid>
+        {links}
+      </Container>
+    );
+  }
+}
+
+class RecipeLink extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -86,19 +96,21 @@ class ListRecipeLink extends React.Component {
   render() {
     return (
       <Row>
-        <Button
-          variant="primary"
-          size="sm"
-          className="Button btn-block"
-          onClick={this.handleClick} >
-          {this.props.title}
-        </Button>
+        <LinkContainer to={this.props.id}>
+          <Button
+            variant="primary"
+            size="sm"
+            className="Button btn-block"
+            onClick={this.handleClick} >
+            {this.props.title}
+          </Button>
+        </LinkContainer>
       </Row>
     );
   }
 }
 
-class ListRecipe extends React.Component {
+class Recipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,7 +136,7 @@ class ListRecipe extends React.Component {
       }
     });
     API
-      .get("recipeAPI", this.props.id)
+      .get("recipeAPI", this.props.match.params.recipe_id)
       .then(response => this.setState({recipe_text: response.text})) 
       .catch(error => {
         console.log(error.response);
@@ -133,6 +145,8 @@ class ListRecipe extends React.Component {
 }
 
 ReactDOM.render(
-  <HomePage />,
+  <BrowserRouter>
+    <HomePage />
+  </BrowserRouter>,
   document.getElementById('root')
 );
