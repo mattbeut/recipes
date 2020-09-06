@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Amplify, { API } from 'aws-amplify';
 
 const ReactMarkdown = require('react-markdown');
 
@@ -200,11 +201,29 @@ class ListRecipe extends React.Component {
   }
 
   componentDidMount() {
-    const link = this.props.link;
-    fetch(link)
-      .then(response => response.blob())
-        .then(blob => blob.text())
-          .then(text => this.setState({recipe_text: text}));
+    Amplify.configure({
+      API: {
+        endpoints: [
+          {
+            name: "recipeAPI",
+            endpoint: "https://pnpno9xich.execute-api.us-east-1.amazonaws.com/devel"
+          },
+        ]
+      }
+    });
+    const link = "/recipe/barbacoa_instant_pot"
+    API
+      .get("recipeAPI", link)
+      .then(response => response.json())
+        .then(json => console.log(json))
+
+      .catch(error => {
+        console.log(error.response);
+    });
+    //fetch(link)
+    //  .then(response => response.blob())
+    //    .then(blob => blob.text())
+    //      .then(text => this.setState({recipe_text: text}));
   }
 }
   
