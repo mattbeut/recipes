@@ -98,9 +98,10 @@ class RecipeLink extends React.Component {
       <Row>
         <LinkContainer to={this.props.id}>
           <Button
-            variant="primary"
+            variant="outline-primary"
             size="sm"
-            className="Button btn-block"
+            block
+            className="Button"
             onClick={this.handleClick} >
             {this.props.title}
           </Button>
