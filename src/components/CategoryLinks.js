@@ -7,7 +7,7 @@ export default function CategoryLinks(props) {
     const links = Object.keys(category_names).map((category_name, index) => {
         return (
             <Button
-                className="Button"
+                className="CategoryButton"
                 key={index}
                 variant="outline-secondary"
                 size="sm"
