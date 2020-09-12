@@ -18,7 +18,7 @@ export default class RecipeLink extends React.Component {
         <Row>
           <LinkContainer to={this.props.id}>
             <Button
-              variant="primary"
+              variant="outline-primary"
               size="sm"
               block
               className="Button"
