@@ -17,7 +17,7 @@ export default function CategoryLinks(props) {
         );
     });
     return (
-        <Row className="CategoriesRow">
+        <Row block className="CategoryRow">
             {links}
         </Row>
     );

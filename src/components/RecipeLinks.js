@@ -2,6 +2,7 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 export default function RecipeLinks(props) {
     const recipes = props.recipes;
@@ -15,7 +16,7 @@ export default function RecipeLinks(props) {
     );
 
     return (
-      <Container>
+      <Container className="Container">
         {links}
       </Container>
     );
@@ -23,14 +24,18 @@ export default function RecipeLinks(props) {
 
 function RecipeLink(props) {
   return (
+    <Row className="RecipeLinkRow">
       <LinkContainer to={props.id}>
         <Button
           variant="outline-primary"
+          className="RecipeButton"
           size="sm"
-          block >
+          >
           {props.title} 
         </Button>
       </LinkContainer>
+
+    </Row>
   );
 }
 

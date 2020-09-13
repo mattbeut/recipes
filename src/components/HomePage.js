@@ -10,23 +10,20 @@ export default class HomePage extends React.Component {
 
         this.state = {
             categories: {
-                "All": []
+                "All": [],
             },
-            selected_category: "All",
             titles: {}
         };        
-
-        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         Amplify.configure({
         API: {
             endpoints: [
-            {
-                name: "recipeAPI",
-                endpoint: "https://pnpno9xich.execute-api.us-east-1.amazonaws.com/devel/recipe/"
-            },
+                {
+                    name: "recipeAPI",
+                    endpoint: "https://pnpno9xich.execute-api.us-east-1.amazonaws.com/devel/recipe/"
+                },
             ]
         }
         });
@@ -41,18 +38,19 @@ export default class HomePage extends React.Component {
         });
     }
 
-    handleClick(category) {
-       this.setState({selected_category: category});
-    }
-
     render() {
+        let recipes = this.state.categories[this.props.selected_category];
+        if (typeof recipes === 'undefined') {
+            recipes = [];
+        }
+        
         return (
-            <Container fluid>
+            <Container className="Container">
                 <CategoryLinks
                     categories={this.state.categories}
-                    handleClick={this.handleClick} />
+                    handleClick={this.props.handleClick} />
                 <RecipeLinks
-                    recipes={this.state.categories[this.state.selected_category]}
+                    recipes={recipes}
                     titles={this.state.titles} />
             </Container>
         );

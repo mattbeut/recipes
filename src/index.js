@@ -7,17 +7,39 @@ import Recipe from './components/Recipe';
 import './index.css';
 import './custom.scss';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selected_category: "All",
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(category) {
+    this.setState({selected_category: category});
+  }
+
+  render() {
     return (
       <Switch>
         <Route
-          path="/" exact component={HomePage}
+          path="/" exact render={(props) => (
+            <HomePage {...props}
+              selected_category={this.state.selected_category}
+              handleClick={this.handleClick}
+            />
+          )}
         />
         <Route
           path="/:recipe_id" component={Recipe}
         />
       </Switch>
     );
+
+  }
 }
 
 ReactDOM.render(
