@@ -1,8 +1,22 @@
 import React from 'react';
-import Amplify, { API } from 'aws-amplify';
+import Amplify, { API, Auth } from 'aws-amplify';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import CategoryLinks from './CategoryLinks';
 import RecipeLinks from './RecipeLinks';
+
+function SignUpButton(props) {
+    return (
+        <Button
+            variant="info"
+            size="sm"
+            className="SignUpButton"
+            onClick={props.handleClick}>
+            Sign Up
+        </Button>
+    )
+}
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -38,12 +52,27 @@ export default class HomePage extends React.Component {
         });
     }
 
+    handleSignUpClick() {
+
+        const { user } = Auth.signUp()
+
+
+    }
+
+    handleSignInClick() {
+
+    }
+
     render() {
         let recipes = this.state.categories[this.props.selected_category];
         if (typeof recipes === 'undefined') {
             recipes = [];
         }
         
+                //<Row className="LoginRow">
+                    //<SignUpButton handleClick={this.handleSignUpClick} />
+                    //<SignInButton handleClick={this.handleSignInClick} />
+                //</Row>
         return (
             <Container className="Container">
                 <CategoryLinks

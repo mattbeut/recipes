@@ -29,6 +29,7 @@ export default class Recipe extends React.Component {
       }
     });
     API
+      //.get("recipeAPI", this.props.match.params.recipe_id)
       .get("recipeAPI", this.props.match.params.recipe_id)
       .then(response => this.setState({recipe_text: response.text})) 
       .catch(error => {
